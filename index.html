@@ -2,28 +2,41 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#C8102E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>SWU Dorm Market | ตลาดมือสองของใช้หอพัก มศว</title>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--red:#C8102E;--red-d:#9e0c24;--grey:#6D6E71;--bg:#f4f5f7;--text:#222;--muted:#808080;--shadow:0 4px 18px rgba(0,0,0,.08)}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+:root{
+  --red:#C8102E;--red-d:#9e0c24;--grey:#6D6E71;--bg:#f4f5f7;--text:#222;--muted:#808080;
+  --shadow:0 4px 18px rgba(0,0,0,.08);
+  --sat:env(safe-area-inset-top,0px);
+  --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px);
+  --sar:env(safe-area-inset-right,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{font-family:'Prompt',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{font-family:'Prompt',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh;min-height:100dvh}
+body.modal-open{overflow:hidden}
 .hidden{display:none!important}
+button,a,.card,.chip,.tab,.dot,.chat-item,.pay-opt,.seller-box,.mini-item,.notif{touch-action:manipulation}
 button{font-family:inherit;cursor:pointer;border:none}
-input,select,textarea{font-family:inherit;font-size:16px} /* Prevent iOS Auto-Zoom */
-.btn{padding:10px 18px;border-radius:10px;font-weight:500;transition:.2s;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
-.btn-sm{padding:6px 12px;font-size:13px;border-radius:8px}
+input,select,textarea{font-family:inherit;font-size:15px}
+.btn{padding:10px 18px;border-radius:10px;font-weight:500;transition:.2s;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px}
+.btn-sm{padding:6px 12px;font-size:13px;border-radius:8px;min-height:34px}
 .btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:var(--red-d)}
 .btn-ghost{background:#fff;color:var(--text);border:1px solid #ddd}.btn-ghost:hover{border-color:var(--red);color:var(--red)}
 .btn-dark{background:var(--grey);color:#fff}
 .btn-block{width:100%}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-.link-btn{background:none;color:var(--muted);font-size:13px;text-decoration:underline;display:block;margin:12px auto 0}
+.link-btn{background:none;color:var(--muted);font-size:13px;text-decoration:underline;display:block;margin:12px auto 0;padding:6px}
 
 /* Auth */
-.auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,var(--red),#55565a)}
+.auth-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:calc(20px + var(--sat)) 20px calc(20px + var(--sab));background:linear-gradient(135deg,var(--red),#55565a)}
 .auth-card{background:#fff;border-radius:20px;padding:32px;width:100%;max-width:430px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
 .auth-brand{font-size:26px;font-weight:600;color:var(--red);text-align:center}
 .auth-sub{text-align:center;color:var(--muted);margin:6px 0 20px;font-size:14px}
@@ -41,54 +54,57 @@ input,select,textarea{font-family:inherit;font-size:16px} /* Prevent iOS Auto-Zo
 .demo-hint{margin-top:16px;padding:10px 12px;background:#fff6f7;border:1px dashed var(--red);border-radius:10px;font-size:12.5px;color:#555;line-height:1.6}
 
 /* Header */
-header{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.06);position:sticky;top:0;z-index:50}
+header{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.06);position:sticky;top:0;z-index:50;padding-top:var(--sat)}
 .header-inner{max-width:1280px;margin:auto;display:flex;align-items:center;gap:10px;padding:12px 20px}
 .logo{font-weight:600;font-size:20px;color:var(--red);white-space:nowrap;cursor:pointer}
 .logo small{display:block;font-size:11px;color:var(--grey);font-weight:400}
 .search{flex:1;position:relative;min-width:0}
 .search input{width:100%;padding:10px 14px 10px 38px;border:1px solid #ddd;border-radius:30px;background:#f8f8f8;outline:none}
 .search input:focus{border-color:var(--red);background:#fff}
-.search::before{content:'🔍';position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px}
+.search::before{content:'🔍';position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none}
 .icon-btn{position:relative;background:#f3f3f3;width:42px;height:42px;border-radius:50%;font-size:18px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center}
 .icon-btn:hover{background:#ffe9ec}
-.icon-btn.sm{width:34px;height:34px;font-size:15px}
-.badge{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:11px;min-width:19px;height:19px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.icon-btn.sm{width:36px;height:36px;font-size:15px}
+.badge{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:11px;min-width:19px;height:19px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;font-weight:600}
 .user-chip{display:flex;align-items:center;gap:8px;font-size:13px;line-height:1.3;cursor:pointer;padding:4px 8px;border-radius:12px;min-width:0}
 .user-chip:hover{background:#f5f5f5}
 .user-chip small{color:var(--muted)}
 .avatar{width:38px;height:38px;border-radius:50%;background:var(--grey);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
 .avatar.lg{width:72px;height:72px;font-size:30px;margin:0 auto 8px}
 
+/* Mobile Bottom Bar (hidden on desktop) */
+.mobile-nav{display:none}
+
 /* Banner */
 .banner-wrap{max-width:1280px;margin:18px auto 0;padding:0 20px}
-.banner{position:relative;overflow:hidden;border-radius:18px;box-shadow:var(--shadow)}
-.track{display:flex;transition:transform .4s cubic-bezier(0.25, 1, 0.5, 1);will-change:transform}
-.slide{min-width:100%;min-height:200px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:28px 56px;color:#fff;cursor:pointer}
+.banner{position:relative;overflow:hidden;border-radius:18px;box-shadow:var(--shadow);touch-action:pan-y}
+.track{display:flex;transition:transform .45s cubic-bezier(.25,.8,.25,1);will-change:transform}
+.slide{min-width:100%;min-height:200px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:28px 56px;color:#fff;cursor:pointer;user-select:none}
 .slide h2{font-size:28px;margin:6px 0}
 .slide p{opacity:.92;margin-bottom:14px}
 .slide-cta{background:#fff;color:#222;padding:8px 18px;border-radius:20px;font-weight:500;display:inline-block;font-size:14px}
 .slide-emoji{font-size:110px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2));flex-shrink:0}
 .ad-tag{display:inline-block;background:rgba(0,0,0,.3);font-size:11px;padding:2px 8px;border-radius:6px;letter-spacing:.5px;color:#fff}
-.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:7px}
+.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:2}
 .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:.2s}
 .dot.active{background:#fff;width:24px;border-radius:5px}
-.nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.3);color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;display:flex;align-items:center;justify-content:center}
+.nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.3);color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;display:flex;align-items:center;justify-content:center;z-index:2}
 .nav-arrow:hover{background:rgba(255,255,255,.5)}
 .prev{left:10px}.next{right:10px}
 
 /* Layout */
 .layout{max-width:1280px;margin:20px auto;padding:0 20px;display:grid;grid-template-columns:1fr 280px;gap:22px}
 .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
-.chips{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;flex:1}
+.chips{display:flex;gap:8px;flex-wrap:wrap;flex:1;-webkit-overflow-scrolling:touch}
 .chips::-webkit-scrollbar{display:none}
-.chip{padding:7px 14px;border-radius:20px;background:#fff;border:1px solid #e2e2e2;font-size:13.5px;white-space:nowrap;flex-shrink:0}
+.chip{padding:7px 14px;border-radius:20px;background:#fff;border:1px solid #e2e2e2;font-size:13.5px;white-space:nowrap}
 .chip.active{background:var(--red);color:#fff;border-color:var(--red)}
 .filters select{padding:8px 10px;border-radius:10px;border:1px solid #ddd;background:#fff}
 .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px}
 .section-title h3{font-weight:500}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
-.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;position:relative;display:flex;flex-direction:column;will-change:transform}
-.card:active{transform:scale(0.98)}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:.2s;position:relative;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(0,0,0,.12)}
 .thumb{height:160px;background:linear-gradient(135deg,#f6f6f6,#e9e9eb);display:flex;align-items:center;justify-content:center;font-size:64px;overflow:hidden}
 .thumb img{width:100%;height:100%;object-fit:cover}
 .card-body{padding:12px;flex:1;display:flex;flex-direction:column}
@@ -114,38 +130,39 @@ aside .side-ad h4{margin:6px 0}
 aside .side-ad p{font-size:13px;opacity:.92}
 .safety{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);font-size:13.5px;line-height:1.8;margin-bottom:16px}
 .safety h4{margin-bottom:6px;color:var(--red)}
-footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:13px;line-height:1.8}
+footer{text-align:center;padding:30px 20px calc(30px + var(--sab));color:var(--muted);font-size:13px;line-height:1.8}
 
-/* Modal Optimized */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:100;padding:16px;-webkit-overflow-scrolling:touch}
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:100;padding:16px;overscroll-behavior:contain}
 .modal.open{display:flex}
-.modal-box{background:#fff;border-radius:18px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;animation:pop .2s cubic-bezier(0.1, 0.9, 0.2, 1)}
+.modal-box{background:#fff;border-radius:18px;width:100%;max-width:560px;max-height:92vh;max-height:92dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;animation:pop .22s}
 .modal-box.wide{max-width:1050px}
-@keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
-.modal-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #eee;position:sticky;top:0;background:#fff;z-index:2}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #eee;position:sticky;top:0;background:#fff;z-index:2;gap:10px}
 .modal-body{padding:20px}
-.close{background:#f2f2f2;width:34px;height:34px;border-radius:50%;font-size:15px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.close{background:#f2f2f2;width:36px;height:36px;border-radius:50%;font-size:16px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 .previews{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .previews img{width:70px;height:70px;object-fit:cover;border-radius:8px}
 
 .gallery-main{height:280px;background:#f3f3f3;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:110px;overflow:hidden}
 .gallery-main img{width:100%;height:100%;object-fit:contain}
 .gallery-thumbs{display:flex;gap:8px;margin-top:8px}
-.gallery-thumbs img{width:60px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.7}
+.gallery-thumbs img{width:60px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.75;border:2px solid transparent}
+.gallery-thumbs img.active{opacity:1;border-color:var(--red)}
 .detail-title{font-size:21px;font-weight:600;margin-top:14px}
 .detail-price{font-size:26px;color:var(--red);font-weight:600}
 .tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
 .tag{background:#f2f2f2;padding:4px 10px;border-radius:8px;font-size:12.5px}
-.desc{white-space:pre-wrap;line-height:1.7;color:#444;margin:10px 0 16px}
+.desc{white-space:pre-wrap;line-height:1.7;color:#444;margin:10px 0 16px;word-break:break-word}
 .seller-box{display:flex;align-items:center;gap:10px;padding:12px;background:#fafafa;border-radius:12px;margin-bottom:12px;cursor:pointer}
 .seller-box:hover{background:#f3f3f3}
 .notice{font-size:12.5px;color:var(--grey);background:#fff6f7;padding:10px;border-radius:10px;margin-bottom:12px}
 .actions{display:flex;gap:10px}.actions .btn{flex:1}
 
-/* Chat Mobile Layout */
+/* Chat */
 .chat-box{max-width:900px;display:flex;flex-direction:column;overflow:hidden}
-.chat-wrap{display:grid;grid-template-columns:290px 1fr;height:72vh}
-.chat-list{border-right:1px solid #eee;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.chat-wrap{display:grid;grid-template-columns:290px 1fr;height:72vh;height:72dvh}
+.chat-list{border-right:1px solid #eee;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .chat-item{display:flex;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid #f4f4f4;align-items:center}
 .chat-item:hover,.chat-item.active{background:#fff2f4}
 .ci-thumb{width:46px;height:46px;border-radius:10px;background:#f1f1f1;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden;flex-shrink:0}
@@ -154,20 +171,49 @@ footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:13px;lin
 .ci-info b{font-size:13.5px;font-weight:500;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ci-info small{color:var(--muted);font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ci-role{font-size:10.5px;padding:1px 6px;border-radius:5px;background:#eee;margin-left:4px}
-.unread{background:var(--red);color:#fff;font-size:11px;border-radius:10px;padding:1px 7px}
+.unread{background:var(--red);color:#fff;font-size:11px;border-radius:10px;padding:1px 7px;flex-shrink:0}
 .chat-room{display:flex;flex-direction:column;min-width:0;min-height:0}
-.room-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #eee}
-.messages{flex:1;overflow-y:auto;padding:16px;background:#f7f7f9;display:flex;flex-direction:column;gap:6px;-webkit-overflow-scrolling:touch}
-.msg{max-width:75%;padding:9px 13px;border-radius:16px;font-size:14px;line-height:1.5;word-wrap:break-word}
+.room-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #eee;background:#fff}
+.chat-back{display:none;background:#f3f3f3;width:36px;height:36px;border-radius:50%;font-size:20px;align-items:center;justify-content:center;flex-shrink:0}
+.messages{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:16px;background:#f7f7f9;display:flex;flex-direction:column;gap:6px}
+.msg{max-width:74%;padding:9px 13px;border-radius:16px;font-size:14px;line-height:1.5;word-wrap:break-word;overflow-wrap:anywhere}
 .msg.me{align-self:flex-end;background:var(--red);color:#fff;border-bottom-right-radius:4px}
 .msg.them{align-self:flex-start;background:#fff;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .msg time{display:block;font-size:10.5px;opacity:.7;margin-top:2px;text-align:right}
-.sys{align-self:center;font-size:12px;color:#555;background:#ececec;padding:5px 12px;border-radius:12px;text-align:center;max-width:90%}
-.quick{display:flex;gap:6px;padding:8px 12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.quick button{background:#fff;border:1px solid #ddd;border-radius:14px;padding:4px 10px;font-size:12.5px;white-space:nowrap;flex-shrink:0}
-.composer{display:flex;gap:8px;padding:12px}
+.sys{align-self:center;font-size:12px;color:#555;background:#ececec;padding:5px 12px;border-radius:12px;text-align:center;max-width:92%}
+.quick{display:flex;gap:6px;padding:8px 12px 0;flex-wrap:wrap;-webkit-overflow-scrolling:touch;background:#fff}
+.quick::-webkit-scrollbar{display:none}
+.quick button{background:#fff;border:1px solid #ddd;border-radius:14px;padding:5px 11px;font-size:12.5px;white-space:nowrap}
+.composer{display:flex;gap:8px;padding:10px 12px;background:#fff;border-top:1px solid #f0f0f0}
 .composer input{flex:1;min-width:0;padding:10px 14px;border:1px solid #ddd;border-radius:22px;outline:none}
-.no-chat{flex:1;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-direction:column;gap:8px;text-align:center;padding:20px}
+.composer input:focus{border-color:var(--red)}
+.no-chat{flex:1;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-direction:column;gap:8px;text-align:center;padding:24px}
+
+/* Payment */
+.co-item{display:flex;gap:12px;align-items:center;padding:12px;background:#fafafa;border-radius:12px}
+.co-thumb{width:56px;height:56px;border-radius:10px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;flex-shrink:0}
+.co-thumb img{width:100%;height:100%;object-fit:cover}
+.pay-opts{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+.pay-opt{display:flex;align-items:center;gap:12px;padding:12px 14px;border:2px solid #eee;border-radius:12px;cursor:pointer;transition:.15s}
+.pay-opt:has(input:checked){border-color:var(--red);background:#fff6f7}
+.pay-opt.disabled{opacity:.45;cursor:not-allowed}
+.pay-opt input{accent-color:var(--red);width:18px;height:18px;flex-shrink:0}
+.po-icon{font-size:26px}
+.pay-opt small{display:block;color:var(--muted);font-size:12px}
+.summary{border-top:1px dashed #ddd;padding-top:10px;margin-bottom:14px;font-size:14px}
+.summary div{display:flex;justify-content:space-between;margin:4px 0}
+.summary .total{font-weight:600;font-size:17px;color:var(--red)}
+.pay-amount{text-align:center;margin-bottom:14px}
+.pay-amount b{display:block;font-size:34px;color:var(--red)}
+.pay-amount small{color:var(--muted)}
+.qr-box{border:1px solid #e5e5e5;border-radius:14px;padding:14px;text-align:center;margin-bottom:14px}
+.pp-head{background:#113566;color:#fff;border-radius:8px;padding:6px;font-weight:600;margin-bottom:12px;letter-spacing:1px}
+#qr{display:flex;justify-content:center;align-items:center;min-height:210px;margin-bottom:8px}
+#qr img,#qr canvas{margin:auto;max-width:100%;height:auto}
+.bank-box{background:#f7f9fc;border:1px solid #e3e8f0;border-radius:14px;padding:16px;margin-bottom:14px;line-height:1.9}
+.acc{font-size:22px;font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card-visual{background:linear-gradient(135deg,#1f2937,#4b5563);color:#fff;border-radius:14px;padding:18px;margin-bottom:14px;font-weight:500}
+.card-visual small{font-weight:300;opacity:.85;display:block;margin-top:6px;line-height:1.6}
 
 /* Orders */
 .order-card{border:1px solid #eee;border-radius:14px;padding:14px;margin-bottom:12px}
@@ -181,12 +227,12 @@ footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:13px;lin
 .slip.big{width:100%;max-width:340px;cursor:zoom-out}
 
 /* Review / notif / profile */
-.star-pick{display:flex;gap:6px;justify-content:center;margin:10px 0}
-.star-pick button{background:none;color:#ddd;font-size:40px;line-height:1}
+.star-pick{display:flex;gap:8px;justify-content:center;margin:10px 0}
+.star-pick button{background:none;color:#ddd;font-size:42px;line-height:1;padding:4px}
 .star-pick button.on{color:#f5a623}
 .review{border-bottom:1px solid #f1f1f1;padding:10px 0;font-size:13.5px}
 .review small{color:var(--muted)}
-.notif{padding:12px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;font-size:14px}
+.notif{padding:13px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;font-size:14px}
 .notif:hover{background:#fafafa}
 .notif.unread{background:#fff6f7}
 .notif small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
@@ -202,11 +248,11 @@ footer{text-align:center;padding:30px 20px;color:var(--muted);font-size:13px;lin
 .stat{background:#fafafa;border-radius:12px;padding:14px;border:1px solid #f0f0f0}
 .stat b{display:block;font-size:21px;color:var(--red)}
 .stat span{font-size:12.5px;color:var(--muted)}
-.table-wrap{overflow-x:auto}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:9px 8px;border-bottom:1px solid #f0f0f0;text-align:left;white-space:nowrap;vertical-align:middle}
 th{background:#fafafa;font-weight:500;color:var(--grey)}
-td .btn-sm{padding:4px 9px;font-size:12px}
+td .btn-sm{padding:5px 10px;font-size:12px}
 .ad-dot{display:inline-flex;width:30px;height:30px;border-radius:8px;align-items:center;justify-content:center;margin-right:6px;vertical-align:middle}
 .pill{font-size:11.5px;padding:2px 8px;border-radius:8px;background:#eee;display:inline-block}
 .pill.on{background:#dcfce7;color:#166534}.pill.off{background:#fee2e2;color:#991b1b}
@@ -214,55 +260,77 @@ td .btn-sm{padding:4px 9px;font-size:12px}
 .ad-preview{border-radius:12px;padding:16px 20px;color:#fff;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px}
 .ad-preview .e{font-size:48px}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:#333;color:#fff;padding:12px 22px;border-radius:12px;z-index:9999;transition:.3s;font-size:14px;max-width:90vw;text-align:center;pointer-events:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(140px);background:#222;color:#fff;padding:12px 20px;border-radius:12px;z-index:9999;transition:.28s;font-size:14px;max-width:90vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.22);pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
 /* ================= MOBILE & TABLET RESPONSIVE ================= */
 @media(max-width:960px){
-  .layout{grid-template-columns:1fr;padding:0 14px}
+  .layout{grid-template-columns:1fr;padding:0 16px}
   aside{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
   aside .side-ad,.safety{margin:0}
 }
 
 @media(max-width:760px){
+  /* บังคับ 16px บน input ทุกช่องป้องกัน iOS Safari ซูมหน้าจอ */
+  input,select,textarea,.search input{font-size:16px}
+
+  /* Header 2 แถวโล่งสบาย ไม่เบียดกัน */
   .header-inner{flex-wrap:wrap;padding:10px 12px;gap:8px}
   .logo{order:1;flex:1;font-size:17px;min-width:0;overflow:hidden;text-overflow:ellipsis}
   .logo small{font-size:10px}
-  #meChip{order:2;padding:3px 6px;gap:6px;background:#f8f8f8;border-radius:20px}
-  #meChip .avatar{width:30px;height:30px;font-size:13px}
-  #meChip .uname{max-width:85px}
-  #meChip #meName{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #meChip{order:2;padding:4px 8px;gap:6px;background:#f8f8f8;border-radius:20px;min-height:36px}
+  #meChip .avatar{width:28px;height:28px;font-size:13px}
+  #meChip .uname{max-width:95px}
+  #meChip #meName{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   #meChip #meFaculty{display:none}
-  #logoutBtn{order:3}
+  #logoutBtn{order:3;width:38px;height:38px;font-size:16px}
   .header-inner::after{content:'';order:3;flex-basis:100%;height:0}
 
-  .search{order:4;flex:1;min-width:90px}
-  .search input{padding:8px 12px 8px 34px;font-size:14px}
-  .search::before{left:11px;font-size:13px}
-  #openPost{order:5;padding:8px 12px;font-size:13px;border-radius:20px;white-space:nowrap}
-  #openOrders,#openChat,#openNotif,#openAdmin{order:6}
-  .icon-btn{width:34px;height:34px;font-size:15px}
-  .badge{font-size:10px;min-width:17px;height:17px;top:-3px;right:-3px}
+  .search{order:4;flex:1;min-width:0}
+  .search input{padding:9px 12px 9px 36px}
+  .search::before{left:12px;font-size:14px}
+  #openPost{order:5;padding:8px 14px;font-size:13.5px;border-radius:22px;white-space:nowrap;min-height:40px}
 
+  /* ย้ายไอคอนเมนูไปไว้ Bottom Nav ด้านล่าง */
+  #openOrders,#openChat,#openNotif,#openAdmin{display:none}
+
+  .mobile-nav{
+    display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;
+    background:#fff;border-top:1px solid #eaeaea;
+    padding:6px 6px calc(6px + var(--sab));
+    justify-content:space-around;align-items:center;
+    box-shadow:0 -2px 14px rgba(0,0,0,.06);
+  }
+  .mnav-btn{
+    position:relative;flex:1;background:none;color:var(--grey);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:2px;padding:4px 2px;min-height:46px;border-radius:10px;font-size:11px;font-weight:500;
+  }
+  .mnav-btn .ico{font-size:20px;line-height:1.1;position:relative;display:inline-flex}
+  .mnav-btn:active{background:#f5f5f5;color:var(--red)}
+  .mnav-btn .badge{top:-4px;right:-10px;font-size:10px;min-width:17px;height:17px}
+
+  /* Banner พอดีจอ */
   .banner-wrap{margin:12px auto 0;padding:0 12px}
   .banner{border-radius:14px}
-  .slide{padding:18px 24px;min-height:140px;gap:10px}
+  .slide{padding:18px 36px;min-height:150px;height:auto;gap:10px}
   .slide h2{font-size:17px;line-height:1.3;margin:4px 0}
   .slide p{font-size:12.5px;line-height:1.4;margin-bottom:10px}
   .slide-cta{padding:6px 14px;font-size:12.5px}
-  .slide-emoji{font-size:52px}
+  .slide-emoji{font-size:50px}
   .nav-arrow{width:28px;height:28px;font-size:15px}
   .prev{left:6px}.next{right:6px}
   .dots{bottom:8px;gap:5px}
   .dot{width:7px;height:7px}.dot.active{width:18px}
 
+  /* Filters & Grid */
   .layout{margin:14px auto;padding:0 12px;gap:16px}
   .filters{gap:8px;margin-bottom:12px}
-  .chips{flex-wrap:nowrap;overflow-x:auto;flex-basis:100%;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .chip{padding:6px 13px;font-size:13px;flex-shrink:0}
-  .filters select{flex:1;min-width:0;font-size:13.5px;padding:8px 10px}
+  .chips{flex-wrap:nowrap;overflow-x:auto;flex-basis:100%;padding-bottom:2px;scrollbar-width:none}
+  .chip{padding:7px 14px;font-size:13px;flex-shrink:0}
+  .filters select{flex:1;min-width:0;font-size:14px;padding:8px 10px}
   .section-title h3{font-size:16px}
-  #mineBtn{padding:7px 12px;font-size:13px}
+  #mineBtn{padding:7px 12px;font-size:13px;min-height:36px}
 
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .card{border-radius:12px}
@@ -283,28 +351,35 @@ td .btn-sm{padding:4px 9px;font-size:12px}
   aside .side-ad .big{font-size:42px}
   .safety{padding:15px;font-size:13px}
 
-  .modal{padding:10px}
-  .modal-box{border-radius:16px;max-height:90vh}
+  /* Modals */
+  .modal{padding:10px;padding-top:calc(10px + var(--sat));padding-bottom:calc(10px + var(--sab))}
+  .modal-box{border-radius:16px;max-height:92vh;max-height:92dvh}
   .modal-head{padding:13px 16px}
   .modal-head h3{font-size:16px}
-  .modal-body{padding:14px 16px}
+  .modal-body{padding:14px 16px calc(18px + var(--sab))}
   .gallery-main{height:220px;font-size:80px}
   .detail-title{font-size:18px}
   .detail-price{font-size:22px}
   .actions{flex-wrap:wrap}
 
-  .chat-box{height:85vh;max-height:85vh}
-  .chat-wrap{grid-template-columns:1fr;grid-template-rows:120px 1fr;height:calc(85vh - 54px)}
-  .chat-list{max-height:120px;border-right:none;border-bottom:1px solid #eee}
-  .chat-item{padding:8px 12px}
-  .ci-thumb{width:38px;height:38px;font-size:20px}
+  /* แชทเต็มจอแบบ Master-Detail ไม่โดนคีย์บอร์ดบัง */
+  #chatModal{padding:0}
+  .chat-box{width:100%;max-width:100%;height:100vh;height:100dvh;max-height:100dvh;border-radius:0;padding-top:var(--sat)}
+  .chat-wrap{grid-template-columns:1fr;grid-template-rows:1fr;height:calc(100dvh - 53px - var(--sat));flex:1;min-height:0}
+  .chat-list{max-height:none;height:100%;border-right:none;border-bottom:none}
+  .chat-wrap.in-room .chat-list{display:none}
+  .chat-wrap:not(.in-room) .chat-room{display:none}
+  .chat-back{display:inline-flex}
+  .chat-item{padding:12px 14px}
+  .ci-thumb{width:44px;height:44px;font-size:22px}
   .room-head{padding:9px 12px}
   .messages{padding:12px}
-  .msg{max-width:84%;font-size:13.5px}
-  .quick{flex-wrap:nowrap;overflow-x:auto;padding:8px 10px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .composer{padding:8px 10px}
+  .msg{max-width:84%;font-size:14px}
+  .quick{flex-wrap:nowrap;overflow-x:auto;padding:8px 10px 4px;scrollbar-width:none}
+  .composer{padding:8px 10px calc(8px + var(--sab))}
 
-  footer{padding:20px 14px;font-size:12px}
+  footer{padding:20px 14px calc(86px + var(--sab));font-size:12px}
+  .toast{bottom:calc(74px + var(--sab))}
 }
 
 @media(max-width:460px){
@@ -319,10 +394,9 @@ td .btn-sm{padding:4px 9px;font-size:12px}
   .pay-amount b{font-size:28px}
 }
 
-@media(max-width:390px){
-  #postBtnText{display:none}
-  #openPost{padding:8px 11px}
+@media(max-width:380px){
   #meChip .uname{display:none}
+  #openPost{padding:8px 12px;font-size:13px}
 }
 </style>
 </head>
@@ -338,13 +412,13 @@ td .btn-sm{padding:4px 9px;font-size:12px}
       <button class="tab" data-tab="register">สมัครสมาชิก</button>
     </div>
     <form id="loginForm">
-      <div class="field"><label>อีเมลมหาวิทยาลัย</label><input id="loginEmail" type="email" placeholder="yourname@g.swu.ac.th" required></div>
-      <div class="field"><label>รหัสผ่าน</label><input id="loginPw" type="password" required></div>
+      <div class="field"><label>อีเมลมหาวิทยาลัย</label><input id="loginEmail" type="email" autocomplete="email" placeholder="yourname@g.swu.ac.th" required></div>
+      <div class="field"><label>รหัสผ่าน</label><input id="loginPw" type="password" autocomplete="current-password" required></div>
       <div class="error" id="loginErr"></div>
       <button class="btn btn-primary btn-block">เข้าสู่ระบบ</button>
     </form>
     <form id="registerForm" class="hidden">
-      <div class="field"><label>ชื่อ-นามสกุล</label><input id="regName" required></div>
+      <div class="field"><label>ชื่อ-นามสกุล</label><input id="regName" autocomplete="name" required></div>
       <div class="row">
         <div class="field"><label>รหัสนิสิต</label><input id="regSid" maxlength="11" inputmode="numeric" placeholder="11 หลัก" required></div>
         <div class="field"><label>คณะ</label>
@@ -359,9 +433,9 @@ td .btn-sm{padding:4px 9px;font-size:12px}
           </select>
         </div>
       </div>
-      <div class="field"><label>อีเมลมหาวิทยาลัย</label><input id="regEmail" type="email" placeholder="yourname@g.swu.ac.th" required>
+      <div class="field"><label>อีเมลมหาวิทยาลัย</label><input id="regEmail" type="email" autocomplete="email" placeholder="yourname@g.swu.ac.th" required>
         <div class="hint">* รับเฉพาะอีเมล @g.swu.ac.th เท่านั้น</div></div>
-      <div class="field"><label>รหัสผ่าน (อย่างน้อย 6 ตัวอักษร)</label><input id="regPw" type="password" required></div>
+      <div class="field"><label>รหัสผ่าน (อย่างน้อย 6 ตัวอักษร)</label><input id="regPw" type="password" autocomplete="new-password" required></div>
       <div class="error" id="regErr"></div>
       <button class="btn btn-primary btn-block">สมัครสมาชิก</button>
     </form>
@@ -375,8 +449,8 @@ td .btn-sm{padding:4px 9px;font-size:12px}
   <header>
     <div class="header-inner">
       <div class="logo" id="logo">🏠 SWU Dorm Market<small>ตลาดมือสองของใช้หอพัก มศว</small></div>
-      <div class="search"><input id="searchInput" placeholder="ค้นหา เช่น ไมโครเวฟ, เตาไฟฟ้า, พัดลม..."></div>
-      <button class="btn btn-primary" id="openPost">＋ <span id="postBtnText">ลงขายสินค้า</span></button>
+      <div class="search"><input id="searchInput" type="search" enterkeyhint="search" placeholder="ค้นหา เช่น ไมโครเวฟ, เตาไฟฟ้า, พัดลม..."></div>
+      <button class="btn btn-primary" id="openPost">＋ <span id="postBtnText">ลงขาย</span></button>
       <button class="icon-btn" id="openOrders" title="คำสั่งซื้อ">🧾</button>
       <button class="icon-btn" id="openChat" title="แชทของฉัน">💬<span class="badge hidden" id="chatBadge">0</span></button>
       <button class="icon-btn" id="openNotif" title="การแจ้งเตือน">🔔<span class="badge hidden" id="notifBadge">0</span></button>
@@ -390,10 +464,10 @@ td .btn-sm{padding:4px 9px;font-size:12px}
   </header>
 
   <div class="banner-wrap" id="bannerWrap">
-    <div class="banner">
+    <div class="banner" id="bannerBox">
       <div class="track" id="track"></div>
-      <button class="nav-arrow prev" id="prevSlide">‹</button>
-      <button class="nav-arrow next" id="nextSlide">›</button>
+      <button class="nav-arrow prev" id="prevSlide" aria-label="สไลด์ก่อนหน้า">‹</button>
+      <button class="nav-arrow next" id="nextSlide" aria-label="สไลด์ถัดไป">›</button>
       <div class="dots" id="dots"></div>
     </div>
   </div>
@@ -402,10 +476,10 @@ td .btn-sm{padding:4px 9px;font-size:12px}
     <main>
       <div class="filters">
         <div class="chips" id="chips"></div>
-        <select id="campusFilter">
+        <select id="campusFilter" aria-label="เลือกวิทยาเขต">
           <option value="all">ทุกวิทยาเขต</option><option value="ประสานมิตร">ประสานมิตร</option><option value="องครักษ์">องครักษ์</option>
         </select>
-        <select id="sortFilter">
+        <select id="sortFilter" aria-label="เรียงลำดับ">
           <option value="new">ล่าสุด</option><option value="low">ราคาต่ำ → สูง</option><option value="high">ราคาสูง → ต่ำ</option>
         </select>
       </div>
@@ -431,15 +505,24 @@ td .btn-sm{padding:4px 9px;font-size:12px}
     💳 รองรับ: พร้อมเพย์ • โอนผ่านธนาคาร • SWU Safe Pay (บัตรเครดิต/เดบิต) • เงินสดเมื่อนัดรับ<br>
     © SWU Dorm Market • พื้นที่ซื้อขายสำหรับนิสิต มศว • ติดต่อลงโฆษณา: ads@swudormmarket.com
   </footer>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="เมนูหลักมือถือ">
+    <button type="button" class="mnav-btn" data-mnav="home"><span class="ico">🏠</span><span>หน้าหลัก</span></button>
+    <button type="button" class="mnav-btn" data-mnav="orders"><span class="ico">🧾</span><span>คำสั่งซื้อ</span></button>
+    <button type="button" class="mnav-btn" data-mnav="chat"><span class="ico">💬<span class="badge hidden" id="mnavChatBadge">0</span></span><span>แชท</span></button>
+    <button type="button" class="mnav-btn" data-mnav="notif"><span class="ico">🔔<span class="badge hidden" id="mnavNotifBadge">0</span></span><span>แจ้งเตือน</span></button>
+    <button type="button" class="mnav-btn hidden" id="mnavAdmin" data-mnav="admin"><span class="ico">🛠️<span class="badge hidden" id="mnavAdminBadge">0</span></span><span>แอดมิน</span></button>
+  </nav>
 </div>
 
 <!-- ================= MODALS ================= -->
 <div class="modal" id="postModal"><div class="modal-box">
-  <div class="modal-head"><h3>📦 ลงขายสินค้า</h3><button class="close" data-close="postModal">✕</button></div>
+  <div class="modal-head"><h3>📦 ลงขายสินค้า</h3><button class="close" data-close="postModal" aria-label="ปิด">✕</button></div>
   <form class="modal-body" id="postForm">
     <div class="field"><label>ชื่อสินค้า *</label><input id="pTitle" maxlength="80" placeholder="เช่น ไมโครเวฟ Sharp 20 ลิตร" required></div>
     <div class="row">
-      <div class="field"><label>ราคา (บาท) *</label><input id="pPrice" type="number" min="1" required></div>
+      <div class="field"><label>ราคา (บาท) *</label><input id="pPrice" type="number" inputmode="numeric" min="1" required></div>
       <div class="field"><label>หมวดหมู่ *</label><select id="pCat" required></select></div>
     </div>
     <div class="row">
@@ -454,22 +537,22 @@ td .btn-sm{padding:4px 9px;font-size:12px}
 </div></div>
 
 <div class="modal" id="detailModal"><div class="modal-box">
-  <div class="modal-head"><h3>รายละเอียดสินค้า</h3><button class="close" data-close="detailModal">✕</button></div>
+  <div class="modal-head"><h3>รายละเอียดสินค้า</h3><button class="close" data-close="detailModal" aria-label="ปิด">✕</button></div>
   <div class="modal-body" id="detailBody"></div>
 </div></div>
 
-<div class="modal" id="chatModal"><div class="modal-box chat-box">
-  <div class="modal-head"><h3>💬 แชทส่วนตัว</h3><button class="close" data-close="chatModal">✕</button></div>
-  <div class="chat-wrap"><div class="chat-list" id="chatList"></div><div class="chat-room" id="chatRoom"></div></div>
+<div class="modal" id="chatModal"><div class="modal-box chat-box" id="chatBox">
+  <div class="modal-head"><h3>💬 แชทส่วนตัว</h3><button class="close" data-close="chatModal" aria-label="ปิด">✕</button></div>
+  <div class="chat-wrap" id="chatWrap"><div class="chat-list" id="chatList"></div><div class="chat-room" id="chatRoom"></div></div>
 </div></div>
 
 <div class="modal" id="checkoutModal"><div class="modal-box">
-  <div class="modal-head"><h3 id="checkoutTitle">🛒 ชำระเงิน</h3><button class="close" data-close="checkoutModal">✕</button></div>
+  <div class="modal-head"><h3 id="checkoutTitle">🛒 ชำระเงิน</h3><button class="close" data-close="checkoutModal" aria-label="ปิด">✕</button></div>
   <div class="modal-body" id="checkoutBody"></div>
 </div></div>
 
 <div class="modal" id="ordersModal"><div class="modal-box" style="max-width:640px">
-  <div class="modal-head"><h3>🧾 คำสั่งซื้อของฉัน</h3><button class="close" data-close="ordersModal">✕</button></div>
+  <div class="modal-head"><h3>🧾 คำสั่งซื้อของฉัน</h3><button class="close" data-close="ordersModal" aria-label="ปิด">✕</button></div>
   <div class="modal-body">
     <div class="tabs" id="orderTabs"><button class="tab" data-tab="buy">🛍️ ที่ฉันซื้อ</button><button class="tab" data-tab="sell">💰 ที่ฉันขาย</button></div>
     <div id="ordersList"></div>
@@ -477,17 +560,17 @@ td .btn-sm{padding:4px 9px;font-size:12px}
 </div></div>
 
 <div class="modal" id="profileModal"><div class="modal-box">
-  <div class="modal-head"><h3>👤 โปรไฟล์ผู้ขาย</h3><button class="close" data-close="profileModal">✕</button></div>
+  <div class="modal-head"><h3>👤 โปรไฟล์ผู้ขาย</h3><button class="close" data-close="profileModal" aria-label="ปิด">✕</button></div>
   <div class="modal-body" id="profileBody"></div>
 </div></div>
 
 <div class="modal" id="notifModal"><div class="modal-box" style="max-width:480px">
-  <div class="modal-head"><h3>🔔 การแจ้งเตือน</h3><button class="close" data-close="notifModal">✕</button></div>
+  <div class="modal-head"><h3>🔔 การแจ้งเตือน</h3><button class="close" data-close="notifModal" aria-label="ปิด">✕</button></div>
   <div id="notifList"></div>
 </div></div>
 
 <div class="modal" id="settingsModal"><div class="modal-box">
-  <div class="modal-head"><h3>⚙️ ตั้งค่าบัญชี</h3><button class="close" data-close="settingsModal">✕</button></div>
+  <div class="modal-head"><h3>⚙️ ตั้งค่าบัญชี</h3><button class="close" data-close="settingsModal" aria-label="ปิด">✕</button></div>
   <form class="modal-body" id="settingsForm">
     <h4 style="margin-bottom:4px">💰 ช่องทางรับเงิน (สำหรับผู้ขาย)</h4>
     <p class="hint" style="margin-bottom:12px">ข้อมูลนี้จะแสดงให้ผู้ซื้อเห็นเฉพาะตอนชำระเงินเท่านั้น</p>
@@ -510,7 +593,7 @@ td .btn-sm{padding:4px 9px;font-size:12px}
 </div></div>
 
 <div class="modal" id="adminModal"><div class="modal-box wide">
-  <div class="modal-head"><h3>🛠️ ระบบผู้ดูแล (Admin)</h3><button class="close" data-close="adminModal">✕</button></div>
+  <div class="modal-head"><h3>🛠️ ระบบผู้ดูแล (Admin)</h3><button class="close" data-close="adminModal" aria-label="ปิด">✕</button></div>
   <div class="modal-body">
     <div class="tabs" id="adminTabs">
       <button class="tab" data-tab="overview">📊 ภาพรวม</button>
@@ -524,7 +607,7 @@ td .btn-sm{padding:4px 9px;font-size:12px}
 </div></div>
 
 <div class="modal" id="adFormModal"><div class="modal-box">
-  <div class="modal-head"><h3 id="adFormTitle">📢 โฆษณา</h3><button class="close" data-close="adFormModal">✕</button></div>
+  <div class="modal-head"><h3 id="adFormTitle">📢 โฆษณา</h3><button class="close" data-close="adFormModal" aria-label="ปิด">✕</button></div>
   <form class="modal-body" id="adForm">
     <div class="ad-preview" id="adPreview"></div>
     <div class="field"><label>หัวข้อ *</label><input id="aTitle" maxlength="60" required></div>
@@ -550,7 +633,7 @@ td .btn-sm{padding:4px 9px;font-size:12px}
 </div></div>
 
 <div class="modal" id="reviewModal"><div class="modal-box" style="max-width:440px">
-  <div class="modal-head"><h3>⭐ ให้คะแนนผู้ขาย</h3><button class="close" data-close="reviewModal">✕</button></div>
+  <div class="modal-head"><h3>⭐ ให้คะแนนผู้ขาย</h3><button class="close" data-close="reviewModal" aria-label="ปิด">✕</button></div>
   <form class="modal-body" id="reviewForm">
     <p style="text-align:center" id="reviewItem"></p>
     <div class="star-pick" id="starPick"></div>
@@ -560,7 +643,7 @@ td .btn-sm{padding:4px 9px;font-size:12px}
 </div></div>
 
 <div class="modal" id="reportModal"><div class="modal-box" style="max-width:460px">
-  <div class="modal-head"><h3>🚩 รายงาน</h3><button class="close" data-close="reportModal">✕</button></div>
+  <div class="modal-head"><h3>🚩 รายงาน</h3><button class="close" data-close="reportModal" aria-label="ปิด">✕</button></div>
   <form class="modal-body" id="reportForm">
     <p class="notice" id="reportTarget"></p>
     <div class="field"><label>เหตุผล *</label><select id="rReason" required></select></div>
@@ -570,12 +653,12 @@ td .btn-sm{padding:4px 9px;font-size:12px}
   </form>
 </div></div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 /* =========================================================
-   CONFIG & MOBILE OPTIMIZATIONS
+   CONFIG
 ========================================================= */
 const P = 'swu2_';
 const KEYS = {users:P+'users',items:P+'items',chats:P+'chats',orders:P+'orders',reviews:P+'reviews',reports:P+'reports',ads:P+'ads',notifs:P+'notifs'};
@@ -608,7 +691,9 @@ const PLACEMENTS = {hero:'แบนเนอร์หลัก',side:'ด้า�
 const BANKS = ['กสิกรไทย','ไทยพาณิชย์','กรุงเทพ','กรุงไทย','กรุงศรีอยุธยา','ทหารไทยธนชาต','ออมสิน','ธ.ก.ส.'];
 const REPORT_REASONS = ['สินค้าต้องห้าม/ผิดกฎหมาย','ข้อมูลเท็จ/หลอกลวง','ภาพหรือข้อความไม่เหมาะสม','ไม่มาตามนัด/ไม่ส่งของ','พฤติกรรมคุกคาม','อื่นๆ'];
 
-/* Storage & Helpers */
+/* =========================================================
+   STORAGE & HELPERS
+========================================================= */
 const DB = {
   get(k,d){ try{ const v=JSON.parse(localStorage.getItem(k)); return v ?? d; }catch{ return d; } },
   set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); return true; }
@@ -621,11 +706,13 @@ const getUser=e=>getUsers().find(u=>u.email===e);
 const getItem=id=>getItems().find(i=>i.id===id);
 const getOrder=id=>getOrders().find(o=>o.id===id);
 
-let me = sessionStorage.getItem(SESSION);
-let lastPushCheck = Date.now();
+let me = null;
+try{ me = sessionStorage.getItem(SESSION); }catch{}
+
 const state = {cat:'all',q:'',campus:'all',sort:'new',mine:false,activeChat:null,orderTab:'buy',adminTab:'overview',
                checkoutOrder:null,editingAd:null,reviewOrder:null,report:null,stars:5};
 const isAdmin = () => getUser(me)?.role==='admin';
+const isMobile = () => window.innerWidth <= 760;
 
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
@@ -660,18 +747,80 @@ function toast(msg){
   const t=$('#toast'); t.textContent=msg; t.classList.add('show');
   clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000);
 }
-function thumbHTML(it){ return it?.images?.length ? `<img src="${it.images[0]}" alt="">` : (CATS[it?.cat]?.icon||'📦'); }
+function thumbHTML(it){
+  const src = it?.images?.[0];
+  return (src && String(src).startsWith('data:image/')) ? `<img src="${src}" alt="">` : (CATS[it?.cat]?.icon||'📦');
+}
 
-/* Optimized Mobile Image Resizer */
-function resizeImage(file,max=600){
-  return new Promise((res,rej)=>{
-    const r=new FileReader();
-    r.onload=e=>{ const img=new Image();
-      img.onload=()=>{ const s=Math.min(1,max/Math.max(img.width,img.height)); const c=document.createElement('canvas');
-        c.width=img.width*s; c.height=img.height*s; c.getContext('2d').drawImage(img,0,0,c.width,c.height); res(c.toDataURL('image/jpeg',0.75)); };
-      img.onerror=rej; img.src=e.target.result; };
-    r.onerror=rej; r.readAsDataURL(file);
+/* Memory-safe preview & resize for mobile cameras */
+function clearPreviews(el){
+  if(!el) return;
+  el.querySelectorAll('img[data-blob]').forEach(img=>{
+    try{ URL.revokeObjectURL(img.dataset.blob); }catch{}
   });
+  el.innerHTML='';
+}
+function renderFilePreviews(el, files){
+  clearPreviews(el);
+  files.forEach(f=>{
+    if(!f || !f.type.startsWith('image/')) return;
+    const url = URL.createObjectURL(f);
+    const img = document.createElement('img');
+    img.src = url;
+    img.dataset.blob = url;
+    img.alt = '';
+    el.appendChild(img);
+  });
+}
+function resizeImage(file, max=640){
+  return new Promise((res,rej)=>{
+    if(!file || !file.type.startsWith('image/')) return rej(new Error('invalid_image'));
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      try{
+        const s = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.width * s));
+        c.height = Math.max(1, Math.round(img.height * s));
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        const out = c.toDataURL('image/jpeg', 0.68);
+        URL.revokeObjectURL(url);
+        res(out);
+      }catch(err){
+        URL.revokeObjectURL(url);
+        rej(err);
+      }
+    };
+    img.onerror = err => {
+      URL.revokeObjectURL(url);
+      rej(err);
+    };
+    img.src = url;
+  });
+}
+
+async function copyText(str){
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(str);
+      return true;
+    }
+  }catch{}
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = str;
+    ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, str.length);
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  }catch{
+    return false;
+  }
 }
 
 /* =========================================================
@@ -752,11 +901,16 @@ $('#registerForm').onsubmit=async e=>{
   DB.set(KEYS.users,users);
   toast('🎉 สมัครสมาชิกสำเร็จ ตั้งค่าช่องทางรับเงินได้ที่รูปโปรไฟล์'); login(email);
 };
-function login(email){ me=email; sessionStorage.setItem(SESSION,email); showApp(); }
+function login(email){
+  me=email;
+  try{ sessionStorage.setItem(SESSION,email); }catch{}
+  showApp();
+}
 function forceLogout(msg){
-  me=null; sessionStorage.removeItem(SESSION);
+  me=null;
+  try{ sessionStorage.removeItem(SESSION); }catch{}
   $('#app').classList.add('hidden'); $('#authScreen').classList.remove('hidden');
-  $$('.modal').forEach(m=>m.classList.remove('open'));
+  closeAllModals();
   if(msg) $('#loginErr').textContent=msg;
 }
 $('#logoutBtn').onclick=()=>{ if(confirm('ต้องการออกจากระบบ?')) forceLogout(); };
@@ -768,15 +922,16 @@ function showApp(){
   $('#meAvatar').textContent=u.name.charAt(0);
   $('#meName').textContent=u.name;
   $('#meFaculty').textContent='คณะ'+u.faculty;
-  $('#openAdmin').classList.toggle('hidden',u.role!=='admin');
-  lastPushCheck=Date.now();
+  const adminFlag = u.role==='admin';
+  $('#openAdmin').classList.toggle('hidden',!adminFlag);
+  $('#mnavAdmin').classList.toggle('hidden',!adminFlag);
   renderAds(); renderChips(); renderGrid(); updateBadge(); updateBell(); updateAdminBadge();
 }
 
 /* =========================================================
-   ADS: แสดงผล + นับ Impression / Click
+   ADS: แสดงผล + นับ Impression / Click + Touch Swipe
 ========================================================= */
-let heroAds=[], slide=0, inlineAd=null, adSig='';
+let heroAds=[], slide=0, inlineAd=null, adSig='', isTouchingBanner=false;
 const seenAds=new Set();
 const adSignature=()=>JSON.stringify(getAds().map(({impressions,clicks,...r})=>r));
 
@@ -823,10 +978,71 @@ function goSlide(i){
 $('#dots').onclick=e=>{ if(e.target.dataset.i!==undefined) goSlide(+e.target.dataset.i); };
 $('#prevSlide').onclick=()=>goSlide(slide-1);
 $('#nextSlide').onclick=()=>goSlide(slide+1);
+setInterval(()=>{ if(me&&heroAds.length>1&&!document.hidden&&!isTouchingBanner) goSlide(slide+1); },5000);
 
-/* Pause auto-slide when page hidden */
-setInterval(()=>{ if(me&&heroAds.length>1&&!document.hidden) goSlide(slide+1); },5000);
-document.addEventListener('click',e=>{ const a=e.target.closest('[data-ad]'); if(a) adClick(a.dataset.ad); });
+/* Touch swipe on Hero Banner */
+(()=>{
+  const banner=$('#bannerBox');
+  let startX=0, startY=0, deltaX=0;
+  banner.addEventListener('touchstart',e=>{
+    if(heroAds.length<=1) return;
+    startX=e.touches[0].clientX;
+    startY=e.touches[0].clientY;
+    deltaX=0;
+    isTouchingBanner=true;
+  },{passive:true});
+  banner.addEventListener('touchmove',e=>{
+    if(!isTouchingBanner) return;
+    const dx=e.touches[0].clientX-startX;
+    const dy=e.touches[0].clientY-startY;
+    if(Math.abs(dx)>Math.abs(dy)) deltaX=dx;
+  },{passive:true});
+  banner.addEventListener('touchend',()=>{
+    if(!isTouchingBanner) return;
+    isTouchingBanner=false;
+    if(Math.abs(deltaX)>40){
+      banner._justSwiped=true;
+      setTimeout(()=>{ banner._justSwiped=false; },250);
+      goSlide(deltaX<0?slide+1:slide-1);
+    }
+    deltaX=0;
+  },{passive:true});
+  banner.addEventListener('touchcancel',()=>{ isTouchingBanner=false; deltaX=0; },{passive:true});
+})();
+
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-ad]');
+  if(a){
+    if($('#bannerBox')?._justSwiped) return;
+    adClick(a.dataset.ad);
+  }
+});
+
+/* =========================================================
+   MOBILE BOTTOM NAV
+========================================================= */
+$('#mobileNav').onclick=e=>{
+  const btn=e.target.closest('[data-mnav]'); if(!btn) return;
+  const act=btn.dataset.mnav;
+  if(act==='home'){
+    closeAllModals();
+    state.mine=false;
+    renderGrid();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }else if(act==='orders'){
+    closeAllModals();
+    openOrders();
+  }else if(act==='chat'){
+    closeAllModals();
+    openChatModal();
+  }else if(act==='notif'){
+    closeAllModals();
+    $('#openNotif').click();
+  }else if(act==='admin'){
+    closeAllModals();
+    openAdmin();
+  }
+};
 
 /* =========================================================
    LISTING
@@ -852,7 +1068,7 @@ $('#searchInput').oninput=e=>{ state.q=e.target.value.trim().toLowerCase(); rend
 $('#campusFilter').onchange=e=>{ state.campus=e.target.value; renderGrid(); };
 $('#sortFilter').onchange=e=>{ state.sort=e.target.value; renderGrid(); };
 $('#mineBtn').onclick=()=>{ state.mine=!state.mine; renderGrid(); };
-$('#logo').onclick=()=>{ state.mine=false; state.cat='all'; state.q=''; $('#searchInput').value=''; renderChips(); renderGrid(); };
+$('#logo').onclick=()=>{ state.mine=false; state.cat='all'; state.q=''; $('#searchInput').value=''; renderChips(); renderGrid(); window.scrollTo({top:0,behavior:'smooth'}); };
 
 function renderGrid(){
   if(!me) return;
@@ -897,18 +1113,42 @@ function renderGrid(){
 $('#grid').onclick=e=>{ const c=e.target.closest('.card[data-id]'); if(c) openDetail(c.dataset.id); };
 
 /* =========================================================
-   MODALS
+   MODALS & SCROLL LOCK
 ========================================================= */
 let zTop=100;
-function openModal(id){ const m=$('#'+id); m.style.zIndex=++zTop; m.classList.add('open'); }
+function syncBodyLock(){
+  const anyOpen = !!document.querySelector('.modal.open');
+  document.body.classList.toggle('modal-open', anyOpen);
+}
+function openModal(id){
+  const m=$('#'+id); if(!m) return;
+  m.style.zIndex=++zTop;
+  m.classList.add('open');
+  syncBodyLock();
+}
 function closeModal(id){
-  $('#'+id).classList.remove('open');
-  if(id==='chatModal') state.activeChat=null;
+  const m=$('#'+id); if(!m) return;
+  m.classList.remove('open');
+  if(id==='chatModal'){ state.activeChat=null; resetChatBoxHeight(); }
   if(id==='checkoutModal') state.checkoutOrder=null;
+  syncBodyLock();
+}
+function closeAllModals(){
+  $$('.modal.open').forEach(m=>m.classList.remove('open'));
+  state.activeChat=null;
+  state.checkoutOrder=null;
+  resetChatBoxHeight();
+  syncBodyLock();
 }
 document.addEventListener('click',e=>{
   if(e.target.dataset.close) closeModal(e.target.dataset.close);
   if(e.target.classList.contains('modal')) closeModal(e.target.id);
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    const open=[...$$('.modal.open')].sort((a,b)=>(+b.style.zIndex||0)-(+a.style.zIndex||0));
+    if(open.length) closeModal(open[0].id);
+  }
 });
 
 /* =========================================================
@@ -919,23 +1159,25 @@ $('#openPost').onclick=()=>openModal('postModal');
 $('#pImages').onchange=e=>{
   const files=[...e.target.files].slice(0,3);
   if(e.target.files.length>3) toast('เลือกได้สูงสุด 3 รูป');
-  $('#previews').innerHTML=files.map(f=>`<img src="${URL.createObjectURL(f)}">`).join('');
+  renderFilePreviews($('#previews'), files);
 };
 $('#postForm').onsubmit=async e=>{
   e.preventDefault();
+  const price = +$('#pPrice').value;
+  if(!Number.isFinite(price) || price < 1) return toast('กรุณาระบุราคาที่ถูกต้อง');
   const btn=$('#postSubmit'); btn.disabled=true; btn.textContent='กำลังบันทึก...';
   try{
     const images=[];
     for(const f of [...$('#pImages').files].slice(0,3)) images.push(await resizeImage(f));
     const items=getItems();
-    items.unshift({id:uid(),title:$('#pTitle').value.trim(),price:Math.max(1,+$('#pPrice').value),cat:$('#pCat').value,
+    items.unshift({id:uid(),title:$('#pTitle').value.trim(),price:Math.round(price*100)/100,cat:$('#pCat').value,
       condition:$('#pCond').value,campus:$('#pCampus').value,desc:$('#pDesc').value.trim(),images,seller:me,
       createdAt:Date.now(),sold:false,reservedBy:null,hidden:false});
     if(DB.set(KEYS.items,items)){
-      e.target.reset(); $('#previews').innerHTML=''; closeModal('postModal'); toast('✅ ลงขายสินค้าเรียบร้อย'); renderGrid();
+      e.target.reset(); clearPreviews($('#previews')); closeModal('postModal'); toast('✅ ลงขายสินค้าเรียบร้อย'); renderGrid();
       const u=getUser(me); if(!u.pay?.promptpay&&!u.pay?.acc) setTimeout(()=>toast('💡 ตั้งค่าพร้อมเพย์/บัญชีธนาคาร เพื่อรับเงินโอน'),3200);
     }
-  }catch{ toast('เกิดข้อผิดพลาดในการอ่านรูปภาพ'); }
+  }catch{ toast('อ่านไฟล์รูปไม่สำเร็จ กรุณาเลือกไฟล์รูปภาพ (JPG/PNG)'); }
   btn.disabled=false; btn.textContent='ลงขาย';
 };
 
@@ -953,7 +1195,7 @@ function openDetail(id){
   const available=!it.sold&&!it.reservedBy&&!it.hidden;
   $('#detailBody').innerHTML=`
     <div class="gallery-main" id="gMain">${thumbHTML(it)}</div>
-    ${(it.images?.length>1)?`<div class="gallery-thumbs">${it.images.map(src=>`<img src="${src}" data-src="${src}">`).join('')}</div>`:''}
+    ${(it.images?.length>1)?`<div class="gallery-thumbs">${it.images.map((src,idx)=>`<img src="${src}" data-src="${src}" class="${idx===0?'active':''}" alt="">`).join('')}</div>`:''}
     <div class="detail-title">${esc(it.title)}</div>
     <div class="detail-price">${fmtPrice(it.price)}</div>
     <div class="tags">
@@ -967,10 +1209,10 @@ function openDetail(id){
     ${it.hidden?`<div class="notice">🚫 สินค้านี้ถูกซ่อนโดยผู้ดูแลระบบ เนื่องจากถูกรายงานว่าละเมิดกฎ</div>`:''}
     <div class="seller-box" id="sellerBox">
       <div class="avatar">${esc(s.name.charAt(0))}</div>
-      <div style="flex:1"><b>${esc(s.name)}</b> ${mine?'(คุณ)':''}<br>
+      <div style="flex:1;min-width:0"><b>${esc(s.name)}</b> ${mine?'(คุณ)':''}<br>
         <small style="color:#888">นิสิตคณะ${esc(s.faculty)} • ✅ ยืนยันตัวตน มศว</small><br>
         <small>${st.count?`<span class="stars">${starStr(st.avg)}</span> ${st.avg.toFixed(1)} (${st.count} รีวิว)`:'<span style="color:#888">ยังไม่มีรีวิว</span>'}</small>
-      </div><span style="color:#aaa">›</span>
+      </div><span style="color:#aaa;font-size:18px">›</span>
     </div>
     ${mine?`
       <div class="actions">
@@ -986,7 +1228,13 @@ function openDetail(id){
       </div>
       <button class="link-btn" id="reportItem">🚩 รายงานสินค้านี้</button>`}
   `;
-  const g=$('.gallery-thumbs'); if(g) g.onclick=e=>{ if(e.target.dataset.src) $('#gMain').innerHTML=`<img src="${e.target.dataset.src}">`; };
+  const g=$('.gallery-thumbs');
+  if(g) g.onclick=e=>{
+    if(e.target.dataset.src){
+      $('#gMain').innerHTML=`<img src="${e.target.dataset.src}" alt="">`;
+      g.querySelectorAll('img').forEach(img=>img.classList.toggle('active',img===e.target));
+    }
+  };
   $('#sellerBox').onclick=()=>openProfile(it.seller);
   if(mine){
     $('#toggleSold').onclick=()=>{
@@ -1060,7 +1308,7 @@ $('#reportForm').onsubmit=e=>{
 };
 
 /* =========================================================
-   PRIVATE CHAT
+   PRIVATE CHAT (Mobile Master-Detail + VisualViewport)
 ========================================================= */
 const isMember=c=>c.buyer===me||c.seller===me;
 const myChats=()=>getChats().filter(isMember).filter(c=>c.messages.length||c.buyer===me).sort((a,b)=>b.updatedAt-a.updatedAt);
@@ -1068,7 +1316,11 @@ const unreadOf=c=>c.messages.filter(m=>m.from!==me&&m.by!==me&&m.time>(c.lastRea
 
 function updateBadge(){
   const n=myChats().reduce((s,c)=>s+unreadOf(c),0);
-  $('#chatBadge').textContent=n; $('#chatBadge').classList.toggle('hidden',!n);
+  ['#chatBadge','#mnavChatBadge'].forEach(sel=>{
+    const el=$(sel); if(!el) return;
+    el.textContent=n;
+    el.classList.toggle('hidden',!n);
+  });
 }
 function findOrCreateChat(chats,itemId,buyer,seller,title){
   let c=chats.find(c=>c.itemId===itemId&&c.buyer===buyer);
@@ -1090,7 +1342,13 @@ function openChatFor(o){
   DB.set(KEYS.chats,chats); openChatModal(c.id);
 }
 $('#openChat').onclick=()=>openChatModal();
-function openChatModal(chatId){ state.activeChat=chatId||null; renderChatList(); renderChatRoom(); openModal('chatModal'); }
+function openChatModal(chatId){
+  state.activeChat=chatId||null;
+  renderChatList();
+  renderChatRoom();
+  openModal('chatModal');
+  syncChatViewport();
+}
 
 function renderChatList(){
   const list=myChats();
@@ -1101,37 +1359,54 @@ function renderChatList(){
     const preview=last?(last.from==='system'?'🔔 '+last.text:(last.from===me?'คุณ: ':'')+last.text):'เริ่มการสนทนา...';
     return `<div class="chat-item ${c.id===state.activeChat?'active':''}" data-id="${c.id}">
       <div class="ci-thumb">${thumbHTML(it)}</div>
-      <div class="ci-info"><b>${esc(other?.name)}<span class="ci-role">${c.buyer===me?'ผู้ขาย':'ผู้ซื้อ'}</span></b>
+      <div class="ci-info"><b>${esc(other?.name||'ผู้ใช้')}<span class="ci-role">${c.buyer===me?'ผู้ขาย':'ผู้ซื้อ'}</span></b>
         <small>${esc(c.itemTitle)}</small><small>${esc(preview)}</small></div>
       ${un?`<span class="unread">${un}</span>`:''}</div>`;
   }).join('');
 }
-$('#chatList').onclick=e=>{ const ci=e.target.closest('.chat-item'); if(!ci) return; state.activeChat=ci.dataset.id; renderChatRoom(); renderChatList(); };
+$('#chatList').onclick=e=>{
+  const ci=e.target.closest('.chat-item'); if(!ci) return;
+  state.activeChat=ci.dataset.id;
+  renderChatRoom();
+  renderChatList();
+};
 
 function renderChatRoom(){
+  const wrap=$('#chatWrap');
   const c=getChats().find(c=>c.id===state.activeChat);
-  if(!c||!isMember(c)){ $('#chatRoom').innerHTML=`<div class="no-chat"><div style="font-size:50px">💬</div>เลือกการสนทนาจากรายการ</div>`; return; }
+  if(!c||!isMember(c)){
+    wrap.classList.remove('in-room');
+    $('#chatRoom').innerHTML=`<div class="no-chat"><div style="font-size:50px">💬</div>เลือกการสนทนาจากรายการ</div>`;
+    return;
+  }
+  wrap.classList.add('in-room');
   const it=getItem(c.itemId), otherEmail=c.buyer===me?c.seller:c.buyer, other=getUser(otherEmail);
   const canBuy=c.buyer===me&&it&&!it.sold&&!it.reservedBy&&!it.hidden;
   $('#chatRoom').innerHTML=`
     <div class="room-head">
-      <div class="ci-thumb" style="width:44px;height:44px">${thumbHTML(it)}</div>
+      <button type="button" class="chat-back" id="chatBackBtn" aria-label="กลับไปรายการแชท">‹</button>
+      <div class="ci-thumb" style="width:42px;height:42px">${thumbHTML(it)}</div>
       <div style="flex:1;min-width:0">
-        <b style="font-size:14px">${esc(c.itemTitle)}</b>
-        <div style="font-size:12.5px;color:#888">${it?`${fmtPrice(it.price)}${it.sold?' • ขายแล้ว':it.reservedBy?' • ติดจอง':''}`:'สินค้าถูกลบแล้ว'} • คุยกับ ${esc(other?.name)}</div>
+        <b style="font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(c.itemTitle)}</b>
+        <div style="font-size:12px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${it?`${fmtPrice(it.price)}${it.sold?' • ขายแล้ว':it.reservedBy?' • ติดจอง':''}`:'สินค้าถูกลบแล้ว'} • ${esc(other?.name||'ผู้ใช้')}</div>
       </div>
       ${canBuy?`<button class="btn btn-primary btn-sm" id="roomBuy">🛒 ซื้อ</button>`:''}
       <button class="icon-btn sm" id="roomReport" title="รายงานผู้ใช้">🚩</button>
     </div>
     <div class="messages" id="msgs"></div>
-    ${c.buyer===me?`<div class="quick"><button>ยังมีของอยู่ไหมครับ/คะ?</button><button>ลดราคาได้ไหม?</button><button>นัดรับที่ไหนได้บ้าง?</button></div>`:''}
-    <form class="composer" id="composer"><input id="msgInput" placeholder="พิมพ์ข้อความ..." autocomplete="off" maxlength="500"><button class="btn btn-primary">ส่ง</button></form>`;
+    ${c.buyer===me?`<div class="quick"><button type="button">ยังมีของอยู่ไหมครับ/คะ?</button><button type="button">ลดราคาได้ไหม?</button><button type="button">นัดรับที่ไหนได้บ้าง?</button></div>`:''}
+    <form class="composer" id="composer"><input id="msgInput" placeholder="พิมพ์ข้อความ..." autocomplete="off" enterkeyhint="send" maxlength="500"><button class="btn btn-primary">ส่ง</button></form>`;
   renderMessages(); markRead(c.id);
+  $('#chatBackBtn').onclick=()=>{
+    state.activeChat=null;
+    renderChatList();
+    renderChatRoom();
+  };
   $('#composer').onsubmit=e=>{ e.preventDefault(); sendMsg($('#msgInput').value); };
   const q=$('.quick'); if(q) q.onclick=e=>{ if(e.target.tagName==='BUTTON') sendMsg(e.target.textContent); };
   if(canBuy) $('#roomBuy').onclick=()=>{ closeModal('chatModal'); openCheckout(c.itemId); };
   $('#roomReport').onclick=()=>openReport('user',otherEmail);
-  $('#msgInput').focus();
+  if(!isMobile()) $('#msgInput').focus();
 }
 function renderMessages(){
   const box=$('#msgs'); if(!box) return;
@@ -1146,7 +1421,10 @@ function sendMsg(text){
   const chats=getChats(), c=chats.find(c=>c.id===state.activeChat);
   if(!c||!isMember(c)) return;
   c.messages.push({from:me,text,time:Date.now()}); c.updatedAt=Date.now(); c.lastRead={...c.lastRead,[me]:Date.now()};
-  DB.set(KEYS.chats,chats); $('#msgInput').value=''; renderMessages(); renderChatList();
+  DB.set(KEYS.chats,chats);
+  const inp=$('#msgInput');
+  if(inp){ inp.value=''; inp.focus(); }
+  renderMessages(); renderChatList();
   const other=c.buyer===me?c.seller:c.buyer;
   notify(other,`💬 ข้อความใหม่จาก ${getUser(me)?.name||me}: "${text.slice(0,40)}"`,{type:'chat',id:c.id});
 }
@@ -1155,6 +1433,31 @@ function markRead(id){
   if(!c||!isMember(c)||!unreadOf(c)) return;
   c.lastRead={...c.lastRead,[me]:Date.now()}; DB.set(KEYS.chats,chats); updateBadge();
 }
+
+/* Adjust mobile chat modal height cleanly when soft keyboard opens */
+function resetChatBoxHeight(){
+  const box=$('#chatBox'), wrap=$('#chatWrap');
+  if(box){ box.style.height=''; box.style.maxHeight=''; }
+  if(wrap){ wrap.style.height=''; }
+}
+function syncChatViewport(){
+  if(!isMobile() || !$('#chatModal').classList.contains('open')) return resetChatBoxHeight();
+  const vv = window.visualViewport;
+  if(!vv) return;
+  const h = Math.round(vv.height);
+  const box = $('#chatBox'), wrap = $('#chatWrap');
+  if(box){ box.style.height = h+'px'; box.style.maxHeight = h+'px'; }
+  if(wrap){ wrap.style.height = Math.max(200, h - 53)+'px'; }
+  const msgs = $('#msgs');
+  if(msgs) msgs.scrollTop = msgs.scrollHeight;
+}
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize', syncChatViewport);
+}
+window.addEventListener('resize', ()=>{
+  if(!isMobile()) resetChatBoxHeight();
+  else syncChatViewport();
+});
 
 /* =========================================================
    PAYMENT: PromptPay QR (มาตรฐาน EMVCo)
@@ -1267,7 +1570,7 @@ function renderPayment(orderId){
         <div class="field"><label>หมายเลขบัตร</label><input id="cardNo" inputmode="numeric" maxlength="23" placeholder="4242 4242 4242 4242" autocomplete="cc-number" required></div>
         <div class="field"><label>ชื่อบนบัตร</label><input id="cardName" placeholder="SOMCHAI JAIDEE" autocomplete="cc-name" required></div>
         <div class="row">
-          <div class="field"><label>วันหมดอายุ</label><input id="cardExp" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp" required></div>
+          <div class="field"><label>วันหมดอายุ</label><input id="cardExp" inputmode="numeric" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp" required></div>
           <div class="field"><label>CVV</label><input id="cardCvv" type="password" inputmode="numeric" maxlength="4" placeholder="•••" autocomplete="cc-csc" required></div>
         </div>
         <div class="error" id="cardErr"></div>
@@ -1279,9 +1582,16 @@ function renderPayment(orderId){
   $('#checkoutBody').innerHTML=html;
 
   if(o.method==='promptpay'&&pay.promptpay) drawQR($('#qr'),promptpayPayload(pay.promptpay,o.price),pay.promptpay,o.price);
-  if(o.method==='bank') $('#copyAcc').onclick=()=>navigator.clipboard?.writeText(digits(pay.acc)).then(()=>toast('📋 คัดลอกเลขบัญชีแล้ว')).catch(()=>toast(digits(pay.acc)));
+  if(o.method==='bank') $('#copyAcc').onclick=async()=>{
+    const raw=digits(pay.acc);
+    const ok=await copyText(raw);
+    toast(ok?'📋 คัดลอกเลขบัญชีแล้ว':'เลขบัญชี: '+raw);
+  };
   if($('#slipFile')){
-    $('#slipFile').onchange=e=>{ const f=e.target.files[0]; $('#slipPrev').innerHTML=f?`<img src="${URL.createObjectURL(f)}">`:''; };
+    $('#slipFile').onchange=e=>{
+      const f=e.target.files[0];
+      renderFilePreviews($('#slipPrev'), f?[f]:[]);
+    };
     $('#submitSlip').onclick=async()=>{
       const f=$('#slipFile').files[0]; if(!f) return toast('กรุณาแนบสลิปการโอนเงิน');
       const btn=$('#submitSlip'); btn.disabled=true; btn.textContent='กำลังส่ง...';
@@ -1289,11 +1599,12 @@ function renderPayment(orderId){
         const img=await resizeImage(f,800);
         const u=updateOrder(o.id,x=>{ if(x.buyer!==me||x.status!=='pending') return false; x.status='verifying'; x.slip=img; x.paidAt=Date.now(); });
         if(u){
+          clearPreviews($('#slipPrev'));
           notify(u.seller,`💰 ผู้ซื้อแจ้งชำระเงิน "${u.itemTitle}" ${fmtPrice(u.price)} กรุณาตรวจสอบสลิป`,{type:'order',id:u.id});
           chatSystem(u,'💰 ผู้ซื้อแนบสลิปการโอนเงินแล้ว รอผู้ขายตรวจสอบ');
           toast('✅ แจ้งชำระเงินแล้ว รอผู้ขายตรวจสอบ'); closeModal('checkoutModal'); openOrders('buy');
         }
-      }catch{ toast('อ่านไฟล์รูปไม่สำเร็จ'); }
+      }catch{ toast('อ่านไฟล์รูปไม่สำเร็จ กรุณาเลือกไฟล์รูปภาพ'); }
       btn.disabled=false; btn.textContent='📤 แจ้งชำระเงิน';
     };
   }
@@ -1425,12 +1736,13 @@ function renderOrders(){
         <b style="color:var(--red);font-size:16px">${fmtPrice(o.price)}</b>
       </div>
       <div class="oc-hint">${orderHint(o,buying)}</div>
-      ${o.slip?`<img class="slip" src="${o.slip}" alt="สลิปโอนเงิน" title="คลิกเพื่อขยาย/ย่อ" onclick="this.classList.toggle('big')">`:''}
+      ${o.slip?`<img class="slip" data-slip="1" src="${o.slip}" alt="สลิปโอนเงิน" title="แตะเพื่อขยาย/ย่อ">`:''}
       <div class="oc-actions">${btns}</div>
     </div>`;
   }).join('');
 }
 $('#ordersList').onclick=e=>{
+  if(e.target.dataset.slip){ e.target.classList.toggle('big'); return; }
   const b=e.target.closest('[data-act]'); if(!b) return;
   const id=b.dataset.id, act=b.dataset.act, o=getOrder(id); if(!o) return;
   if(act==='pay'){ closeModal('ordersModal'); renderPayment(id); }
@@ -1472,8 +1784,10 @@ $('#reviewForm').onsubmit=e=>{
 };
 
 /* =========================================================
-   NOTIFICATIONS
+   NOTIFICATIONS (Safe for iOS / In-App Browsers)
 ========================================================= */
+const hasNotificationAPI = () => typeof window !== 'undefined' && typeof window.Notification !== 'undefined';
+
 function notify(to,text,meta={}){
   if(!to) return;
   const notifs=getNotifs();
@@ -1482,7 +1796,7 @@ function notify(to,text,meta={}){
   if(to===me){
     updateBell();
     const u=getUser(me);
-    if(u?.notifyOn&&'Notification'in window&&Notification.permission==='granted'){
+    if(u?.notifyOn && hasNotificationAPI() && Notification.permission==='granted'){
       try{ new Notification('SWU Dorm Market',{body:text}); }catch{}
     }
   }
@@ -1490,8 +1804,11 @@ function notify(to,text,meta={}){
 function updateBell(){
   if(!me) return;
   const n=getNotifs().filter(x=>x.to===me&&!x.read).length;
-  $('#notifBadge').textContent=n;
-  $('#notifBadge').classList.toggle('hidden',!n);
+  ['#notifBadge','#mnavNotifBadge'].forEach(sel=>{
+    const el=$(sel); if(!el) return;
+    el.textContent=n;
+    el.classList.toggle('hidden',!n);
+  });
 }
 $('#openNotif').onclick=()=>{
   const notifs=getNotifs(), mine=notifs.filter(x=>x.to===me);
@@ -1518,11 +1835,14 @@ $('#notifList').onclick=e=>{
 $('#sBank').innerHTML='<option value="">-- เลือกธนาคาร --</option>'+BANKS.map(b=>`<option>${b}</option>`).join('');
 function refreshNotifUI(){
   const u=getUser(me);
-  const supported='Notification'in window;
-  const granted=supported&&Notification.permission==='granted';
-  const on=!!(u?.notifyOn&&granted);
-  $('#notifStatus').textContent=!supported?'เบราว์เซอร์นี้ไม่รองรับการแจ้งเตือน':on?'สถานะ: เปิดการแจ้งเตือนบนเบราว์เซอร์แล้ว':'สถานะ: ปิดอยู่';
+  const supported=hasNotificationAPI();
+  const granted=supported && Notification.permission==='granted';
+  const on=!!(u?.notifyOn && granted);
+  $('#notifStatus').textContent=!supported
+    ?'เบราว์เซอร์นี้ (เช่น In-App Browser) ไม่รองรับการแจ้งเตือนภายนอก แต่ยังดูแจ้งเตือนในแอปได้ปกติ'
+    :(on?'สถานะ: เปิดการแจ้งเตือนบนเบราว์เซอร์แล้ว':'สถานะ: ปิดอยู่');
   $('#notifToggle').textContent=on?'🔕 ปิดการแจ้งเตือน':'🔔 เปิดการแจ้งเตือน';
+  $('#notifToggle').disabled=!supported;
 }
 $('#meChip').onclick=()=>{
   const u=getUser(me); if(!u) return;
@@ -1548,12 +1868,16 @@ $('#settingsForm').onsubmit=e=>{
   closeModal('settingsModal'); toast('💾 บันทึกการตั้งค่าแล้ว');
 };
 $('#notifToggle').onclick=async()=>{
-  if(!('Notification'in window)) return toast('เบราว์เซอร์ไม่รองรับ');
+  if(!hasNotificationAPI()) return toast('เบราว์เซอร์นี้ไม่รองรับการแจ้งเตือน');
   const users=getUsers(), u=users.find(x=>x.email===me); if(!u) return;
   if(u.notifyOn){ u.notifyOn=false; }
   else{
-    const perm=await Notification.requestPermission();
-    if(perm!=='granted') return toast('กรุณาอนุญาตการแจ้งเตือนในเบราว์เซอร์ก่อน');
+    let perm='denied';
+    try{
+      const res = Notification.requestPermission(p=>{ perm=p; });
+      perm = (res && typeof res.then==='function') ? await res : perm;
+    }catch{}
+    if(perm!=='granted') return toast('กรุณาอนุญาตการแจ้งเตือนในตั้งค่าเบราว์เซอร์ก่อน');
     u.notifyOn=true;
   }
   DB.set(KEYS.users,users); refreshNotifUI();
@@ -1569,8 +1893,11 @@ $('#testNotif').onclick=()=>{
 function updateAdminBadge(){
   if(!isAdmin()) return;
   const n=getReports().filter(r=>r.status==='open').length;
-  $('#adminBadge').textContent=n;
-  $('#adminBadge').classList.toggle('hidden',!n);
+  ['#adminBadge','#mnavAdminBadge'].forEach(sel=>{
+    const el=$(sel); if(!el) return;
+    el.textContent=n;
+    el.classList.toggle('hidden',!n);
+  });
 }
 $('#openAdmin').onclick=()=>openAdmin();
 $$('#adminTabs .tab').forEach(t=>t.onclick=()=>{ state.adminTab=t.dataset.tab; renderAdmin(); });
